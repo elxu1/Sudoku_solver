@@ -7,12 +7,12 @@ class Board:
         # Initialize the board by reading in numbers from numbers.txt
         values = utils.read_puzzle("numbers.txt")
         self.board = []
-        for rowNum, row in enumerate(values):
-            newRow = []
-            for columnNum, value in enumerate(row):
-                cell = Cell(value, rowNum, columnNum, self)
-                newRow.append(cell)
-            self.board.append(newRow)
+        for row_num, row in enumerate(values):
+            new_row = []
+            for column_num, value in enumerate(row):
+                cell = Cell(value, row_num, column_num, self)
+                new_row.append(cell)
+            self.board.append(new_row)
 
     def __str__(self):
         board = ""
@@ -22,5 +22,5 @@ class Board:
             board = board + "\n"
         return board
 
-b = Board()
-print(b)
+    def value_at(self, row, column):
+        return self.board[row][column].value

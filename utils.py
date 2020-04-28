@@ -19,3 +19,15 @@ def read_puzzle(puzzle_file):
         puzzle_arr.append(numbers)
 
     return puzzle_arr
+
+def block_number(row, col):
+    '''Defines the block a cell is located in'''
+    return (row//3) * 3 + (col//3)
+
+def block_ranges(block):
+    '''Helper function to get block ranges'''
+    row_start = (block // 3) * 3
+    row_end = row_start + 3
+    col_start = (block % 3) * 3
+    col_end = col_start + 3
+    return [range(row_start, row_end), range(col_start, col_end)]
