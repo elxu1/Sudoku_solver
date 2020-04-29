@@ -25,9 +25,12 @@ class Cell:
 
     def block_values(self):
         '''Get all the values in the same 3x3 block'''
+
+        # Get the row and column ranges
         block = block_number(self.row, self.column)
         [row_range, column_range] = block_ranges(block)
 
+        # Iterate the ranges and collect the values from the board
         values = []
         for row in row_range:
             for column in column_range:

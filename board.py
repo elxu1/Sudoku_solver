@@ -23,4 +23,47 @@ class Board:
         return board
 
     def value_at(self, row, column):
+        '''Retreives the value at a row and column number'''
         return self.board[row][column].value
+
+    def is_completed(self):
+        '''Determines if the board is completed correctly'''
+        return self.check_rows() and self.check_columns() and self.check_blocks()
+
+    def check_rows(self):
+        '''Checks if all the rows are correct'''
+        values = set(range(1,10))
+        for row in self.board:
+            if set(row) != values:
+                return False
+        return True
+
+    def check_columns(self):
+        '''Checks if all the columns are correct'''
+        values = set(range(1,10))
+
+        # Take the transpose of the grid and check the rows in that
+        transpose_grid = utils.transpose(self.board)
+        for row in transpose_grid:
+            if set(row) != values:
+                return False
+        return True
+
+    def check_blocks(self):
+        '''Checks if all the blocks are correct'''
+        values = set(range(1,10))
+
+        # Iterate each block
+        for block_num in range(1,10):
+            [row_range, column_range] = utils.block_ranges(block_num)
+            block_values = []
+
+            # Collect values from each block
+            for row in row_range:
+                for column in column_range:
+                    block_values.append(self.value_at(row, column))
+
+                    # If the values in the block aren't 1 through 9
+                    if block_values != values:
+                        return False
+        return True
