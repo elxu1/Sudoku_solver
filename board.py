@@ -42,10 +42,12 @@ class Board:
         '''Checks if all the columns are correct'''
         values = set(range(1,10))
 
-        # Take the transpose of the grid and check the rows in that
-        transpose_grid = utils.transpose(self.board)
-        for row in transpose_grid:
-            if set(row) != values:
+        # Iterate through cells of the first row
+        for cell in self.board[0]:
+
+            # Tell each cell to get all the values in its column
+            current_column = set(cell.column_values())
+            if current_column != values:
                 return False
         return True
 
