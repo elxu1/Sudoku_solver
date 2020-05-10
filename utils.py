@@ -17,7 +17,7 @@ def read_puzzle(puzzle_file):
         numbers = line.split(' ')
         numbers = list(map(try_eval, numbers))
         puzzle_arr.append(numbers)
-
+    file.close()
     return puzzle_arr
 
 def block_number(row, col):

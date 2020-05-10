@@ -14,13 +14,21 @@ class Cell:
 
     def row_values(self):
         '''Get all the values in the same row'''
-        return self.board[self.row]
+        cells = self.board[self.row]
+        values = map(lambda cell: cell.value, cells)
+
+        # Remove the none values and the value of this cell
+        values = set(filter(None, values))
+        return values - set([self.value])
 
     def column_values(self):
         '''Get all the values in the same column'''
-        values = []
+        values = set()
         for row in self.board:
-            values.append(row[self.column])
+
+            # Get the value from each cell in a column
+            value = row[self.column].value
+            values.add(value)
         return values
 
     def block_values(self):
@@ -31,8 +39,21 @@ class Cell:
         [row_range, column_range] = block_ranges(block)
 
         # Iterate the ranges and collect the values from the board
-        values = []
+        values = set()
         for row in row_range:
             for column in column_range:
-                values.append(self.board.value_at(row, column))
+                value = self.board.value_at(row, column)
+                values.add(value)
         return values
+
+    def find_potential_values(self):
+        if type(self.value) == 'int':
+            return []
+        else:
+            potential_values = set(range(1, 10))
+
+            # The used values is the set union of the row, column, and block values
+            used_values = self.row_values().union(self.column_values()).union(self.block_values())
+
+            # The potential values is just the set difference of all values and the used values
+            return potential_values.difference(used_values)
