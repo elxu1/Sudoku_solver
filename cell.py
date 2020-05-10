@@ -29,7 +29,8 @@ class Cell:
             # Get the value from each cell in a column
             value = row[self.column].value
             values.add(value)
-        return values
+        values = set(filter(None, values))
+        return values - set([self.value])
 
     def block_values(self):
         '''Get all the values in the same 3x3 block'''
@@ -44,11 +45,12 @@ class Cell:
             for column in column_range:
                 value = self.board.value_at(row, column)
                 values.add(value)
-        return values
+        values = set(filter(None, values))
+        return values - set([self.value])
 
     def find_potential_values(self):
-        if type(self.value) == 'int':
-            return []
+        if type(self.value) == int:
+            return set()
         else:
             potential_values = set(range(1, 10))
 
